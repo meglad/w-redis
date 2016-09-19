@@ -1,0 +1,26 @@
+{
+  "name": "w-redis",
+  "version": "0.0.1",
+  "description": "promise redis",
+  "main": "index.js",
+  "author": "@meglad",
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "Promise",
+    "Redis"
+  ],
+  "devDependencies": {},
+  "dependencies": {
+    "redis": "^2.6.2"
+  },
+  "scripts": {
+  },
+  "bugs": {
+    "url": "https://github.com/meGlad/w-redis/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:meglad/w-redis.git"
+  }
+}
