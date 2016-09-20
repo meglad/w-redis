@@ -28,13 +28,24 @@ var client = redis.createClient(config);
 var key = 'key:test';
 new Promise(function (resolve, reject) {
   resolve();
+}).then(function () {
+  return client.select(1);
 }).then(function (reply) {
+  console.log('#0 %j', reply);
   return client.set(key, 'value #1');
 }).then(function (reply) {
   console.log('#1 %j', reply);
   return client.get(key);
 }).then(function (reply) {
   console.log('#2 %j', reply);
+  return client.multi([
+    ['zadd', 'key:test:zset', 1, 'one'],
+    ['zadd', 'key:test:zset', 2, 'two'],
+    ['zadd', 'key:test:zset', 3, 'three'],
+    ['zrange', 'key:test:zset', 0, -1, 'WITHSCORES']
+  ]).exec();
+}).then(function (reply) {
+  console.log('#3 %j', reply);
   return client.multi()
     .set(key, 'value #2')
     .get(key)
@@ -44,6 +55,6 @@ new Promise(function (resolve, reject) {
   console.log('replys: %j', replys);
 }).catch(function (err) {
   client.quit();
-  console.error('error: %j', err);
+  console.error('error: %j', err.message);
 });
 ```
